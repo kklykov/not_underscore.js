@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="content">
+            not_underscore.js
+        </div>
+    </header>
+    <div class="container">
+        <div class="sidebar">
+
+        </div>
+        <div class="sandbox">
+
+        </div>
+    </div>
+    <footer>
+        <div class="content">
+
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" src="../js/not_underscore.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+<script>
+
+
+    console.log('not_underscore.js version: ', not_.VERSION);
+
+    console.log('not_.each test: ');
+
+
+    function isNotUnderscore(method = ''){ console.log('%c not_underscore.js - %s', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)}
+    function isUnderscore(method = ''){ console.log('%c _underscore.js - %s', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)}
+
+
+    // EACH
+
+    var myEachArray = [10, 20, 30, 40, 50]
+
+    var myEachObject = {one: 100, two: 200, three: 300}
+
+    var myEachFunction = function(value, index, list) {
+        console.log('value', value);
+        console.log('index', index);
+        console.log('list', list);
+    }
+
+    isNotUnderscore('.each')
+
+    not_.each(myEachArray, myEachFunction)
+    not_.each(myEachObject, myEachFunction)
+
+    isUnderscore('.each')
+
+    _.each(myEachArray, myEachFunction)
+    _.each(myEachObject, myEachFunction)
+
+
+    // MAP
+
+
+</script>
+
+</html>
