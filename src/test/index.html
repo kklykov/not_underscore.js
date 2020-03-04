@@ -36,9 +36,23 @@
     console.log('not_.each test: ');
 
 
-    function isNotUnderscore(method = ''){ console.log('%c not_underscore.js - %s', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)}
-    function isUnderscore(method = ''){ console.log('%c _underscore.js - %s', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)}
+    function isNotUnderscoreStart(method = ''){
+        console.log('%c not_underscore.js - %s start', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)
+        console.time('not_underscore.js' + method);
+    }
+    function isNotUnderscoreEnd(method = ''){
+        console.timeEnd('not_underscore.js' + method);
+        console.log('%c not_underscore.js - %s end', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)
+    }
 
+    function isUnderscoreStart(method = ''){
+        console.log('%c _underscore.js - %s start', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)
+        console.time('underscore.js' + method);
+    }
+    function isUnderscoreEnd(method = ''){
+        console.timeEnd('underscore.js' + method);
+        console.log('%c _underscore.js - %s end', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)
+    }
 
     // EACH
 
@@ -46,24 +60,77 @@
 
     var myEachObject = {one: 100, two: 200, three: 300}
 
+
     var myEachFunction = function(value, index, list) {
         console.log('value', value);
         console.log('index', index);
         console.log('list', list);
     }
 
-    isNotUnderscore('.each')
+    isNotUnderscoreStart('.each')
 
     not_.each(myEachArray, myEachFunction)
     not_.each(myEachObject, myEachFunction)
 
-    isUnderscore('.each')
+    isNotUnderscoreEnd('.each')
+
+
+    isUnderscoreStart('.each')
 
     _.each(myEachArray, myEachFunction)
     _.each(myEachObject, myEachFunction)
 
+    isUnderscoreEnd('.each')
+
 
     // MAP
+
+
+    var myMapArray = [10, 20, 30, 40, 50]
+
+    var myMapObject = {one: 100, two: 200, three: 300}
+
+    var myMapFunction = function(value, index, list) {
+       return value + 3
+    }
+
+    isNotUnderscoreStart('.map')
+
+    console.log(not_.map(myEachArray, myMapFunction))
+    console.log(not_.map(myEachObject, myMapFunction))
+
+    isNotUnderscoreEnd('.map')
+
+
+    isUnderscoreStart('.map')
+
+    console.log(_.map(myEachArray, myMapFunction))
+    console.log(_.map(myEachObject, myMapFunction))
+
+    isUnderscoreEnd('.map')
+
+    // REDUCE
+
+    var myReduceArray = [10, 20, 30, 40, 50]
+
+    var myReduceObject = {one: 100, two: 200, three: 300}
+
+    var myReduceFunction = function(memo, num){ return memo + num; }
+
+    isNotUnderscoreStart('.reduce')
+
+    console.log(not_.reduce(myReduceArray, myReduceFunction, 2))
+    console.log(not_.reduce(myReduceObject, myReduceFunction, 2))
+
+    isNotUnderscoreEnd('.reduce')
+
+
+    isUnderscoreStart('.reduce')
+
+    console.log(_.reduce(myReduceArray, myReduceFunction, 2))
+    console.log(_.reduce(myReduceObject, myReduceFunction, 2))
+
+    isUnderscoreEnd('.reduce')
 
 
 </script>
