@@ -87,7 +87,7 @@
 
 
    /*
-    function: .map
+    function: .reduce
     parameters -> 
                 list: 
                 iteratee:
@@ -95,21 +95,48 @@
   */
 
     not_.reduce = function(list, iteratee, memo){
-        let count
         not_.map(list, function(value, index, self) {
-          if(!count){
             if(!memo){
               memo = value
             }else{
               memo = iteratee(memo, value, index, self)
             }
-          }else{
-            memo += iteratee(memo, value, index, self)
-          }
-          count++
         })
         return memo
     }
+
+
+       /*
+        function: .reduceRight
+        parameters -> 
+                    list: 
+                    iteratee:
+                    [memo]:
+      */
+     not_.reduceRight = function(list, iteratee, memo){ 
+       
+      let obj = list
+      let objKeys = []
+      let isObject = false
+
+      if(list instanceof Array === false){
+        obj = Object.values(list)
+        objKeys = Object.keys(list)
+        isObject = true
+      }
+      
+      for (let index = obj.length; index >= 0; index--) {
+        const element = obj[index];
+        if(element){
+          if(!memo){
+            memo = element
+          }else{
+            memo = iteratee(memo, element, isObject ? objKeys[index] : index, list)
+          }
+        }
+      }
+      return memo
+     }
 
 
 })();

@@ -115,7 +115,7 @@
 
     var myReduceObject = {one: 100, two: 200, three: 300}
 
-    var myReduceFunction = function(memo, num){ return memo + num; }
+    var myReduceFunction = function(memo, num, index){ return memo + num }
 
     isNotUnderscoreStart('.reduce')
 
@@ -131,6 +131,31 @@
     console.log(_.reduce(myReduceObject, myReduceFunction, 2))
 
     isUnderscoreEnd('.reduce')
+
+    // REDUCE RIGHT
+
+    var list = [[0, 1], [2, 3], [4, 5]]
+
+    var myReduceRightFunction = function(a, b) { return a.concat(b)}
+
+    isNotUnderscoreStart('.reduceRight')
+
+    console.log(not_.reduceRight(myReduceArray, myReduceFunction, 2))
+    console.log(not_.reduceRight(myReduceObject, myReduceFunction, 2))
+    console.log(not_.reduceRight(list, myReduceRightFunction, []))
+
+
+    isNotUnderscoreEnd('.reduceRight')
+
+
+    isUnderscoreStart('.reduceRight')
+
+    console.log(_.reduceRight(myReduceArray, myReduceFunction, 2))
+    console.log(_.reduceRight(myReduceObject, myReduceFunction, 2))
+    console.log(_.reduceRight(list, myReduceRightFunction, []))
+
+
+    isUnderscoreEnd('.reduceRight')
 
 
 </script>
