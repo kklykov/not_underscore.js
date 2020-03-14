@@ -182,6 +182,125 @@
     isUnderscoreEnd('.find')
 
 
+    // FILTER 
+
+    var filterArray = [1, 2, 3, 4, 5, 6]
+
+    var filterObject = {one: 100, two: 200, three: 300, four: 450}
+
+    var filterFunction = function(num) { return num % 2 == 0}
+
+    isNotUnderscoreStart('.filter')
+
+    console.log(not_.filter(filterArray, filterFunction))
+    console.log(not_.filter(filterObject, filterFunction))
+
+    isNotUnderscoreEnd('.filter')
+
+
+    isUnderscoreStart('.filter')
+
+    console.log(_.filter(filterArray, filterFunction))
+    console.log(_.filter(filterObject, filterFunction))
+
+    isUnderscoreEnd('.filter')
+
+    // FINDWHERE
+
+    var arrayFindWhere = [{
+        id: "1918",
+        value: "Hello"
+    }, 
+    {
+        array: [{
+            id: "15512",
+            value: "Find it!"
+        },
+        {
+            id: "676121",
+            value: "Good",
+            something: "else"
+        }],
+        value: "array"
+    },
+    {
+        id: "1aADwa21d",
+        value: "Good",
+        something: "else"
+    },
+    {
+        id: "1551",
+        value: "Bad",
+        more: "values"
+    }]
+
+    var toFind = {id: "1aADwa21d"}
+
+    isNotUnderscoreStart('.findWhere')
+
+    console.log(not_.findWhere(arrayFindWhere, toFind))
+
+    isNotUnderscoreEnd('.findWhere')
+
+
+    isUnderscoreStart('.findWhere')
+
+    console.log(_.findWhere(arrayFindWhere, toFind))
+
+    isUnderscoreEnd('.findWhere')
+
+    // WHERE
+
+    var arrayWhere = [{
+        id: "1918",
+        value: "Hello"
+    }, 
+    {
+        array: [{
+            id: "15512",
+            value: "Find it!"
+        },
+        {
+            id: "676121",
+            value: "Good",
+            something: "else"
+        }],
+        value: "array"
+    },
+    {
+        id: "1aADwa21d",
+        value: "Good",
+        something: "else"
+    },
+    {
+        id: "1551",
+        value: "Bad",
+        more: "values"
+    },
+    {
+        id: "123",
+        value: "Good",
+        more: "a"
+    }]
+
+    var whereObject = {value: "Good"}
+
+    isNotUnderscoreStart('.where')
+
+    console.log(not_.where(arrayWhere, whereObject))
+
+    isNotUnderscoreEnd('.where')
+
+
+    isUnderscoreStart('.where')
+
+    console.log(_.where(arrayWhere, whereObject))
+
+    isUnderscoreEnd('.where')
+
+
+    // REJECT
+
 </script>
 
 </html>

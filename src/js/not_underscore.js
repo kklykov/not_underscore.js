@@ -158,4 +158,68 @@
 
 		return undefined
 	}
+
+	/*
+        function: .filter
+        parameters -> 
+                    list: 
+                    predicate:
+  */
+	not_.filter = function(list, predicate) {
+		var result = []
+		if (list instanceof Array) {
+			for (let index = 0; index < list.length; index++) {
+				const element = list[index]
+				if (predicate(element, index, list)) result.push(element)
+			}
+		} else {
+			for (const prop in list) {
+				if (predicate(list[prop], prop, list)) result.push(list[prop])
+			}
+		}
+		return result
+	}
+
+	/*
+        function: .findWhere
+        parameters -> 
+                    list: 
+                    predicate:
+  */
+
+	not_.findWhere = function(list, properties) {
+		for (let index = 0; index < list.length; index++) {
+			const element = list[index]
+			if (element instanceof Array === false) {
+				for (const prop in element) {
+					if (element[prop] == properties[prop]) {
+						return element
+					}
+				}
+			}
+		}
+		return undefined
+	}
+
+	/*
+        function: .where
+        parameters -> 
+                    list: 
+                    predicate:
+  */
+
+	not_.where = function(list, properties) {
+		var result = []
+		for (let index = 0; index < list.length; index++) {
+			const element = list[index]
+			if (element instanceof Array === false) {
+				for (const prop in element) {
+					if (element[prop] == properties[prop]) {
+						result.push(element)
+					}
+				}
+			}
+		}
+		return result
+	}
 })()
