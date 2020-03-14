@@ -158,6 +158,30 @@
     isUnderscoreEnd('.reduceRight')
 
 
+    // FIND 
+
+    var findArray = [1, 2, 3, 4, 5, 6]
+
+    var findObject = {one: 100, two: 200, three: 300}
+
+    var findFunction = function(num) { return num % 2 == 0}
+
+    isNotUnderscoreStart('.find')
+
+    console.log(not_.find(findArray, findFunction))
+    console.log(not_.find(findObject, findFunction))
+
+    isNotUnderscoreEnd('.find')
+
+
+    isUnderscoreStart('.find')
+
+    console.log(_.find(findArray, findFunction))
+    console.log(_.find(findObject, findFunction))
+
+    isUnderscoreEnd('.find')
+
+
 </script>
 
 </html>
