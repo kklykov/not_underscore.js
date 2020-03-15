@@ -265,4 +265,25 @@
 		}
 		return true
 	}
+
+	/*
+        function: .some
+        parameters -> 
+                    list: 
+                    [predicate]:
+	*/
+
+	not_.some = function(list, predicate) {
+		if (list instanceof Array) {
+			for (let index = 0; index < list.length; index++) {
+				const element = list[index]
+				if (predicate(element, index, list)) return true
+			}
+		} else {
+			for (const prop in list) {
+				if (predicate(list[prop], prop, list)) return true
+			}
+		}
+		return false
+	}
 })()

@@ -54,26 +54,42 @@
 
         function isNotUnderscoreStart(method = ''){
             console.log('%c not_underscore.js - %s start', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)
-            console.time('not_underscore.js' + method);
         }
         function isNotUnderscoreEnd(method = ''){
-            console.timeEnd('not_underscore.js' + method);
             console.log('%c not_underscore.js - %s end', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)
         }
 
         function isUnderscoreStart(method = ''){
             console.log('%c _underscore.js - %s start', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)
-            console.time('underscore.js' + method);
         }
         function isUnderscoreEnd(method = ''){
-            console.timeEnd('underscore.js' + method);
             console.log('%c _underscore.js - %s end', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)
         }
 
 
         var createTestCard = function(id, name, data){
 
-            var error = !_.isEqual(data.other.result, data.me.result)
+            var error = false;
+
+            isNotUnderscoreStart(`.${name} - ${data.type}`)
+            console.log(data.me.result)
+            isNotUnderscoreEnd(`.${name} - ${data.type}`)
+
+            isUnderscoreStart(`.${name} - ${data.type}`)
+            console.log(data.other.result)
+            isUnderscoreEnd(`.${name} - ${data.type}`)
+
+            if(Array.isArray(data.me.result) && Array.isArray(data.other.result) ){
+                data.other.result.forEach( function( value ) {
+                    if(  data.me.result.indexOf( value ) == -1 ) {
+                        error = true
+                    }
+                });
+            }else if(data.other.result instanceof Object && data.me.result instanceof Object){
+                error = !_.isEqual(data.other.result, data.me.result)
+            }else{
+                error = data.other.result != data.me.result
+            }
 
             if(data.me.time < data.other.time){
                 data.me.percentage = 100
@@ -85,7 +101,7 @@
 
             var card = `<div class="card" id="${id}">
                         <div class="title">
-                            <span>${name} - ${data.type}</span>
+                            <span>.${name} - ${data.type}</span>
                         </div>
                         <div class="content">
                             <div class="other">
@@ -188,7 +204,7 @@
         var methods = [{
             name: 'each',
             type: 'Array',
-            parameters: [...myArray, myEachFunction]
+            parameters: [[...myArray], myEachFunction]
         },
         {
             name: 'each',
@@ -198,7 +214,7 @@
         {
             name: 'map',
             type: 'Array',
-            parameters: [...myArray, myMapFunction]
+            parameters: [[...myArray], myMapFunction]
         },
         {
             name: 'map',
@@ -208,7 +224,7 @@
         {
             name: 'reduce',
             type: 'Array',
-            parameters: [...myArray, myReduceFunction, 2]
+            parameters: [[...myArray], myReduceFunction, 2]
         },
         {
             name: 'reduce',
@@ -218,7 +234,7 @@
         {
             name: 'reduceRight',
             type: 'Array',
-            parameters: [...myArray, myReduceFunction, 2]
+            parameters: [[...myArray], myReduceFunction, 2]
         },
         {
             name: 'reduceRight',
@@ -238,7 +254,7 @@
         {
             name: 'find',
             type: 'Array',
-            parameters: [...myArray, myFindFunction]
+            parameters: [[...myArray], myFindFunction]
         },
         {
             name: 'filter',
@@ -253,12 +269,32 @@
         {
             name: 'findWhere',
             type: 'Array of Objects',
-            parameters: [...arrayFindWhere, objectToFind]
+            parameters: [[...arrayFindWhere], objectToFind]
         },
         {
             name: 'where',
             type: 'Array of Objects',
-            parameters: [...arrayFindWhere, objectToFind]
+            parameters: [[...arrayFindWhere], objectToFind]
+        },
+        {
+            name: 'every',
+            type: 'Array',
+            parameters: [[...myArray], myFindFunction]
+        },
+        {
+            name: 'every',
+            type: 'Object',
+            parameters: [{...myObject}, myFindFunction]
+        },
+        {
+            name: 'some',
+            type: 'Array',
+            parameters: [[...myArray], myFindFunction]
+        },
+        {
+            name: 'some',
+            type: 'Object',
+            parameters: [{...myObject}, myFindFunction]
         }]
 
         methods.forEach(function(item, index, self) {
@@ -304,183 +340,6 @@
 
             createTestCard(uuid(), item.name, data)
         })
-
-
-        // EACH
-
-        isNotUnderscoreStart('.each')
-
-        console.log(not_.each(...myArray, myEachFunction))
-        console.log(not_.each({...myObject}, myEachFunction))
-
-        isNotUnderscoreEnd('.each')
-
-
-        isUnderscoreStart('.each')
-
-        console.log(_.each(...myArray, myEachFunction))
-        console.log(_.each({...myObject}, myEachFunction))
-
-        isUnderscoreEnd('.each')
-
-
-        // MAP
-
-        isNotUnderscoreStart('.map')
-
-        console.log(not_.map(myArray, myMapFunction))
-        console.log(not_.map(myObject, myMapFunction))
-
-        isNotUnderscoreEnd('.map')
-
-
-        isUnderscoreStart('.map')
-
-        console.log(_.map(myArray, myMapFunction))
-        console.log(_.map(myObject, myMapFunction))
-
-        isUnderscoreEnd('.map')
-
-        // REDUCE
-
-        isNotUnderscoreStart('.reduce')
-
-        console.log(not_.reduce(myArray, myReduceFunction, 2))
-        console.log(not_.reduce(myObject, myReduceFunction, 2))
-
-        isNotUnderscoreEnd('.reduce')
-
-
-        isUnderscoreStart('.reduce')
-
-        console.log(_.reduce(myArray, myReduceFunction, 2))
-        console.log(_.reduce(myObject, myReduceFunction, 2))
-
-        isUnderscoreEnd('.reduce')
-
-        // REDUCE RIGHT
-
-        isNotUnderscoreStart('.reduceRight')
-
-        console.log(not_.reduceRight(myArray, myReduceFunction, 2))
-        console.log(not_.reduceRight(myObject, myReduceFunction, 2))
-        console.log(not_.reduceRight(myReduceList, myReduceRightFunction, []))
-
-
-        isNotUnderscoreEnd('.reduceRight')
-
-
-        isUnderscoreStart('.reduceRight')
-
-        console.log(_.reduceRight(myArray, myReduceFunction, 2))
-        console.log(_.reduceRight(myObject, myReduceFunction, 2))
-        console.log(_.reduceRight(myReduceList, myReduceRightFunction, []))
-
-
-        isUnderscoreEnd('.reduceRight')
-
-
-        // FIND 
-
-        isNotUnderscoreStart('.find')
-
-        console.log(not_.find(myArray, myFindFunction))
-        console.log(not_.find(myObject, myFindFunction))
-
-        isNotUnderscoreEnd('.find')
-
-
-        isUnderscoreStart('.find')
-
-        console.log(_.find(myArray, myFindFunction))
-        console.log(_.find(myObject, myFindFunction))
-
-        isUnderscoreEnd('.find')
-
-
-        // FILTER 
-
-        isNotUnderscoreStart('.filter')
-
-        console.log(not_.filter(myArray, myFindFunction))
-        console.log(not_.filter(myObject, myFindFunction))
-
-        isNotUnderscoreEnd('.filter')
-
-
-        isUnderscoreStart('.filter')
-
-        console.log(_.filter(myArray, myFindFunction))
-        console.log(_.filter(myObject, myFindFunction))
-
-        isUnderscoreEnd('.filter')
-
-        // FINDWHERE
-
-
-        isNotUnderscoreStart('.findWhere')
-
-        console.log(not_.findWhere(arrayFindWhere, objectToFind))
-
-        isNotUnderscoreEnd('.findWhere')
-
-
-        isUnderscoreStart('.findWhere')
-
-        console.log(_.findWhere(arrayFindWhere, objectToFind))
-
-        isUnderscoreEnd('.findWhere')
-
-        // WHERE
-
-
-        isNotUnderscoreStart('.where')
-
-        console.log(not_.where(arrayFindWhere, objectToFind))
-
-        isNotUnderscoreEnd('.where')
-
-
-        isUnderscoreStart('.where')
-
-        console.log(_.where(arrayFindWhere, objectToFind))
-
-        isUnderscoreEnd('.where')
-
-
-        // REJECT
-
-        isNotUnderscoreStart('.reject')
-
-        console.log(not_.reject(myArray, myFindFunction))
-        console.log(not_.reject(myObject, myFindFunction))
-
-        isNotUnderscoreEnd('.reject')
-
-
-        isUnderscoreStart('.reject')
-
-        console.log(_.reject(myArray, myFindFunction))
-        console.log(_.reject(myObject, myFindFunction))
-
-        isUnderscoreEnd('.reject')
-
-        // EVERY
-
-        isNotUnderscoreStart('.every')
-
-        console.log(not_.every(myArray, myFindFunction))
-        console.log(not_.every(myObject, myFindFunction))
-
-        isNotUnderscoreEnd('.every')
-
-
-        isUnderscoreStart('.every')
-
-        console.log(_.every(myArray, myFindFunction))
-        console.log(_.every(myObject, myFindFunction))
-
-        isUnderscoreEnd('.every')
 
     });
 
