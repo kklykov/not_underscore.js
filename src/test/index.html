@@ -5,19 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 <body>
     <header>
         <div class="content">
-            not_underscore.js
+            <span>not_</span>underscore.js
         </div>
     </header>
     <div class="container">
-        <div class="sidebar">
-
-        </div>
         <div class="sandbox">
-
+            <div class="title">
+                <span>underscore.js vs not_underscore.js <span>Less is  better - 100.000x average</span></span>
+            </div>
+            <div class="results loading" id="results">
+                <div id="loader" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </div>
         </div>
     </div>
     <footer>
@@ -29,278 +33,458 @@
 <script type="text/javascript" src="../js/not_underscore.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 <script>
-
-
-    console.log('not_underscore.js version: ', not_.VERSION);
-
-    console.log('not_.each test: ');
-
-
-    function isNotUnderscoreStart(method = ''){
-        console.log('%c not_underscore.js - %s start', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)
-        console.time('not_underscore.js' + method);
-    }
-    function isNotUnderscoreEnd(method = ''){
-        console.timeEnd('not_underscore.js' + method);
-        console.log('%c not_underscore.js - %s end', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)
-    }
-
-    function isUnderscoreStart(method = ''){
-        console.log('%c _underscore.js - %s start', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)
-        console.time('underscore.js' + method);
-    }
-    function isUnderscoreEnd(method = ''){
-        console.timeEnd('underscore.js' + method);
-        console.log('%c _underscore.js - %s end', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)
-    }
-
-    // EACH
-
-    var myEachArray = [10, 20, 30, 40, 50]
-
-    var myEachObject = {one: 100, two: 200, three: 300}
-
-
-    var myEachFunction = function(value, index, list) {
-        console.log('value', value);
-        console.log('index', index);
-        console.log('list', list);
-    }
-
-    isNotUnderscoreStart('.each')
-
-    not_.each(myEachArray, myEachFunction)
-    not_.each(myEachObject, myEachFunction)
-
-    isNotUnderscoreEnd('.each')
-
-
-    isUnderscoreStart('.each')
-
-    _.each(myEachArray, myEachFunction)
-    _.each(myEachObject, myEachFunction)
-
-    isUnderscoreEnd('.each')
-
-
-    // MAP
-
-
-    var myMapArray = [10, 20, 30, 40, 50]
-
-    var myMapObject = {one: 100, two: 200, three: 300}
-
-    var myMapFunction = function(value, index, list) {
-       return value + 3
-    }
-
-    isNotUnderscoreStart('.map')
-
-    console.log(not_.map(myEachArray, myMapFunction))
-    console.log(not_.map(myEachObject, myMapFunction))
-
-    isNotUnderscoreEnd('.map')
-
-
-    isUnderscoreStart('.map')
-
-    console.log(_.map(myEachArray, myMapFunction))
-    console.log(_.map(myEachObject, myMapFunction))
-
-    isUnderscoreEnd('.map')
-
-    // REDUCE
-
-    var myReduceArray = [10, 20, 30, 40, 50]
-
-    var myReduceObject = {one: 100, two: 200, three: 300}
-
-    var myReduceFunction = function(memo, num, index){ return memo + num }
-
-    isNotUnderscoreStart('.reduce')
-
-    console.log(not_.reduce(myReduceArray, myReduceFunction, 2))
-    console.log(not_.reduce(myReduceObject, myReduceFunction, 2))
-
-    isNotUnderscoreEnd('.reduce')
-
-
-    isUnderscoreStart('.reduce')
-
-    console.log(_.reduce(myReduceArray, myReduceFunction, 2))
-    console.log(_.reduce(myReduceObject, myReduceFunction, 2))
-
-    isUnderscoreEnd('.reduce')
-
-    // REDUCE RIGHT
-
-    var list = [[0, 1], [2, 3], [4, 5]]
-
-    var myReduceRightFunction = function(a, b) { return a.concat(b)}
-
-    isNotUnderscoreStart('.reduceRight')
-
-    console.log(not_.reduceRight(myReduceArray, myReduceFunction, 2))
-    console.log(not_.reduceRight(myReduceObject, myReduceFunction, 2))
-    console.log(not_.reduceRight(list, myReduceRightFunction, []))
-
-
-    isNotUnderscoreEnd('.reduceRight')
-
-
-    isUnderscoreStart('.reduceRight')
-
-    console.log(_.reduceRight(myReduceArray, myReduceFunction, 2))
-    console.log(_.reduceRight(myReduceObject, myReduceFunction, 2))
-    console.log(_.reduceRight(list, myReduceRightFunction, []))
-
-
-    isUnderscoreEnd('.reduceRight')
-
-
-    // FIND 
-
-    var findArray = [1, 2, 3, 4, 5, 6]
-
-    var findObject = {one: 100, two: 200, three: 300}
-
-    var findFunction = function(num) { return num % 2 == 0}
-
-    isNotUnderscoreStart('.find')
-
-    console.log(not_.find(findArray, findFunction))
-    console.log(not_.find(findObject, findFunction))
-
-    isNotUnderscoreEnd('.find')
-
-
-    isUnderscoreStart('.find')
-
-    console.log(_.find(findArray, findFunction))
-    console.log(_.find(findObject, findFunction))
-
-    isUnderscoreEnd('.find')
-
-
-    // FILTER 
-
-    var filterArray = [1, 2, 3, 4, 5, 6]
-
-    var filterObject = {one: 100, two: 200, three: 300, four: 450}
-
-    var filterFunction = function(num) { return num % 2 == 0}
-
-    isNotUnderscoreStart('.filter')
-
-    console.log(not_.filter(filterArray, filterFunction))
-    console.log(not_.filter(filterObject, filterFunction))
-
-    isNotUnderscoreEnd('.filter')
-
-
-    isUnderscoreStart('.filter')
-
-    console.log(_.filter(filterArray, filterFunction))
-    console.log(_.filter(filterObject, filterFunction))
-
-    isUnderscoreEnd('.filter')
-
-    // FINDWHERE
-
-    var arrayFindWhere = [{
-        id: "1918",
-        value: "Hello"
-    }, 
-    {
-        array: [{
-            id: "15512",
-            value: "Find it!"
+    $(function() {
+
+        const REPS = 1000
+    
+        function uuid() {
+            // I generate the UID from two parts here
+            // to ensure the random number provide enough bits.
+            var firstPart = (Math.random() * 46656) | 0
+            var secondPart = (Math.random() * 46656) | 0
+            firstPart = ('000' + firstPart.toString(36)).slice(-3)
+            secondPart = ('000' + secondPart.toString(36)).slice(-3)
+            return firstPart + secondPart
+        }
+
+        console.log('not_underscore.js version: ', not_.VERSION);
+
+        console.log('not_.each test: ');
+
+
+        function isNotUnderscoreStart(method = ''){
+            console.log('%c not_underscore.js - %s start', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)
+            console.time('not_underscore.js' + method);
+        }
+        function isNotUnderscoreEnd(method = ''){
+            console.timeEnd('not_underscore.js' + method);
+            console.log('%c not_underscore.js - %s end', 'background-color: #262e35; color: #4efede; font-size: 12px;', method)
+        }
+
+        function isUnderscoreStart(method = ''){
+            console.log('%c _underscore.js - %s start', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)
+            console.time('underscore.js' + method);
+        }
+        function isUnderscoreEnd(method = ''){
+            console.timeEnd('underscore.js' + method);
+            console.log('%c _underscore.js - %s end', 'background-color: #4efede; color: #262e35; font-size: 12px;', method)
+        }
+
+
+        var createTestCard = function(id, name, data){
+
+            var error = !_.isEqual(data.other.result, data.me.result)
+
+            if(data.me.time < data.other.time){
+                data.me.percentage = 100
+                data.other.percentage = (((data.me.time * 100) / data.other.time)).toFixed(2) 
+            }else{
+                data.me.percentage = (((data.other.time * 100) / data.me.time)).toFixed(2) 
+                data.other.percentage = 100
+            }
+
+            var card = `<div class="card" id="${id}">
+                        <div class="title">
+                            <span>${name} - ${data.type}</span>
+                        </div>
+                        <div class="content">
+                            <div class="other">
+                                <span class="name">underscore.js</span>
+                                <div class="slide">
+                                    <span class="check"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="check-square"  role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 400H48V80h352v352zm-35.864-241.724L191.547 361.48c-4.705 4.667-12.303 4.637-16.97-.068l-90.781-91.516c-4.667-4.705-4.637-12.303.069-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l59.792 60.277 141.352-140.216c4.705-4.667 12.303-4.637 16.97.068l22.536 22.718c4.667 4.706 4.637 12.304-.068 16.971z"></path></svg></span>
+                                    <p><span>${data.other.time}ms</span> <span>${(data.me.percentage - 100).toFixed(2)}%</span></p>
+                                    <span class="flex task-progress-remaining" >
+                                        <span class="task-progress-complete" ></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="me">
+                                <span class="name">not_underscore.js</span>
+                                <div class="slide">
+                                    <span class="check ${error ? 'check-error': ''}"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="check-square"  role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm0 400H48V80h352v352zm-35.864-241.724L191.547 361.48c-4.705 4.667-12.303 4.637-16.97-.068l-90.781-91.516c-4.667-4.705-4.637-12.303.069-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l59.792 60.277 141.352-140.216c4.705-4.667 12.303-4.637 16.97.068l22.536 22.718c4.667 4.706 4.637 12.304-.068 16.971z"></path></svg></span>
+                                    <p><span>${data.me.time}ms</span> <span>${(data.other.percentage - 100).toFixed(2)}%</span></p>
+                                    <span class="flex task-progress-remaining" >
+                                        <span class="task-progress-complete ${error ? 'task-error': ''}"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+
+            $('#results').append(card)
+            $('#results').removeClass('loading')
+            $('#loader').remove()
+            $(`#${id} .other .task-progress-complete`).css("width", "0%");
+
+            var datta = {...data}
+            setTimeout(() => {
+                $(`#${id} .other .task-progress-complete`).css("width", `${datta.other.percentage > 100 ? 100 : datta.me.percentage}%`);
+            }, 200)
+            
+            $(`#${id} .me .task-progress-complete`).css("width", "0%");
+            
+            setTimeout(() => {
+                $(`#${id} .me .task-progress-complete`).css("width", `${datta.me.percentage > 100 ? 100 : datta.other.percentage}%`);
+            }, 200)
+
+        }
+
+        var myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+        var myObject = {one: 100, two: 200, three: 300, four: 451}
+
+        var myReduceList = [[0, 1], [2, 3], [4, 5], [6, 7], [8, 9]]
+
+        var arrayFindWhere = [{
+            id: "1918",
+            value: "Hello"
+        }, 
+        {
+            array: [{
+                id: "15512",
+                value: "Find it!"
+            },
+            {
+                id: "676121",
+                value: "Good",
+                something: "else"
+            }],
+            value: "array"
         },
         {
-            id: "676121",
+            id: "1aADwa21d",
             value: "Good",
             something: "else"
-        }],
-        value: "array"
-    },
-    {
-        id: "1aADwa21d",
-        value: "Good",
-        something: "else"
-    },
-    {
-        id: "1551",
-        value: "Bad",
-        more: "values"
-    }]
-
-    var toFind = {id: "1aADwa21d"}
-
-    isNotUnderscoreStart('.findWhere')
-
-    console.log(not_.findWhere(arrayFindWhere, toFind))
-
-    isNotUnderscoreEnd('.findWhere')
-
-
-    isUnderscoreStart('.findWhere')
-
-    console.log(_.findWhere(arrayFindWhere, toFind))
-
-    isUnderscoreEnd('.findWhere')
-
-    // WHERE
-
-    var arrayWhere = [{
-        id: "1918",
-        value: "Hello"
-    }, 
-    {
-        array: [{
-            id: "15512",
-            value: "Find it!"
         },
         {
-            id: "676121",
+            id: "1551",
+            value: "Bad",
+            more: "values"
+        },
+        {
+            id: "12245",
             value: "Good",
-            something: "else"
-        }],
-        value: "array"
-    },
-    {
-        id: "1aADwa21d",
-        value: "Good",
-        something: "else"
-    },
-    {
-        id: "1551",
-        value: "Bad",
-        more: "values"
-    },
-    {
-        id: "123",
-        value: "Good",
-        more: "a"
-    }]
+            something: "else",
+            bad: false
+        }]
 
-    var whereObject = {value: "Good"}
+        var objectToFind = {value: "Good"}
 
-    isNotUnderscoreStart('.where')
+        var myEachFunction = function(value, index, list) {
+            list[index] = value + 2
+        }
 
-    console.log(not_.where(arrayWhere, whereObject))
+        var myMapFunction = function(value, index, list) {
+        return value + 3
+        }
 
-    isNotUnderscoreEnd('.where')
+        var myReduceFunction = function(memo, num, index){ return memo + num }
+
+        var myReduceRightFunction = function(a, b) { return a.concat(b)}
+
+        var myFindFunction = function(num) { return num % 2 == 0}
 
 
-    isUnderscoreStart('.where')
+        var methods = [{
+            name: 'each',
+            type: 'Array',
+            parameters: [...myArray, myEachFunction]
+        },
+        {
+            name: 'each',
+            type: 'Object',
+            parameters: [{...myObject}, myEachFunction]
+        },
+        {
+            name: 'map',
+            type: 'Array',
+            parameters: [...myArray, myMapFunction]
+        },
+        {
+            name: 'map',
+            type: 'Object',
+            parameters: [{...myObject}, myMapFunction]
+        },
+        {
+            name: 'reduce',
+            type: 'Array',
+            parameters: [...myArray, myReduceFunction, 2]
+        },
+        {
+            name: 'reduce',
+            type: 'Object',
+            parameters: [{...myObject}, myReduceFunction, 2]
+        },
+        {
+            name: 'reduceRight',
+            type: 'Array',
+            parameters: [...myArray, myReduceFunction, 2]
+        },
+        {
+            name: 'reduceRight',
+            type: 'Array of Arrays',
+            parameters: [[...myReduceList], myReduceRightFunction, []]
+        },
+        {
+            name: 'reduceRight',
+            type: 'Object',
+            parameters: [{...myObject}, myReduceFunction, 2]
+        },
+        {
+            name: 'find',
+            type: 'Object',
+            parameters: [{...myObject}, myFindFunction]
+        },
+        {
+            name: 'find',
+            type: 'Array',
+            parameters: [...myArray, myFindFunction]
+        },
+        {
+            name: 'filter',
+            type: 'Object',
+            parameters: [{...myObject}, myFindFunction]
+        },
+        {
+            name: 'filter',
+            type: 'Array',
+            parameters: [...myArray, myFindFunction]
+        },
+        {
+            name: 'findWhere',
+            type: 'Array of Objects',
+            parameters: [...arrayFindWhere, objectToFind]
+        },
+        {
+            name: 'where',
+            type: 'Array of Objects',
+            parameters: [...arrayFindWhere, objectToFind]
+        }]
 
-    console.log(_.where(arrayWhere, whereObject))
+        methods.forEach(function(item, index, self) {
+            var data = {
+                type: item.type,
+                other: {
+                    result: '',
+                    time: 0
+                },
+                me: {
+                    result: '',
+                    time: 0
+                }
+            }
 
-    isUnderscoreEnd('.where')
+            var myTime = []
+            var otherTime = []
+
+            for (let index = 0; index < REPS; index++) {
+            
+                var start = window.performance.now()
+
+                data.other.result = _[item.name](...item.parameters)
+
+                var end = window.performance.now()
+
+                otherTime.push(end - start)
+
+                start = window.performance.now()
+
+                data.me.result = not_[item.name](...item.parameters)
+
+                end = window.performance.now()
+
+                myTime.push(end - start)
+            }
+
+            const mean = (...numbers) => numbers.reduce((acc, val) => acc + val, 0) / numbers.length
+
+            data.me.time = mean(...myTime).toFixed(5)
+        
+            data.other.time = mean(...otherTime).toFixed(5)
+
+            createTestCard(uuid(), item.name, data)
+        })
 
 
-    // REJECT
+        // EACH
 
+        isNotUnderscoreStart('.each')
+
+        console.log(not_.each(...myArray, myEachFunction))
+        console.log(not_.each({...myObject}, myEachFunction))
+
+        isNotUnderscoreEnd('.each')
+
+
+        isUnderscoreStart('.each')
+
+        console.log(_.each(...myArray, myEachFunction))
+        console.log(_.each({...myObject}, myEachFunction))
+
+        isUnderscoreEnd('.each')
+
+
+        // MAP
+
+        isNotUnderscoreStart('.map')
+
+        console.log(not_.map(myArray, myMapFunction))
+        console.log(not_.map(myObject, myMapFunction))
+
+        isNotUnderscoreEnd('.map')
+
+
+        isUnderscoreStart('.map')
+
+        console.log(_.map(myArray, myMapFunction))
+        console.log(_.map(myObject, myMapFunction))
+
+        isUnderscoreEnd('.map')
+
+        // REDUCE
+
+        isNotUnderscoreStart('.reduce')
+
+        console.log(not_.reduce(myArray, myReduceFunction, 2))
+        console.log(not_.reduce(myObject, myReduceFunction, 2))
+
+        isNotUnderscoreEnd('.reduce')
+
+
+        isUnderscoreStart('.reduce')
+
+        console.log(_.reduce(myArray, myReduceFunction, 2))
+        console.log(_.reduce(myObject, myReduceFunction, 2))
+
+        isUnderscoreEnd('.reduce')
+
+        // REDUCE RIGHT
+
+        isNotUnderscoreStart('.reduceRight')
+
+        console.log(not_.reduceRight(myArray, myReduceFunction, 2))
+        console.log(not_.reduceRight(myObject, myReduceFunction, 2))
+        console.log(not_.reduceRight(myReduceList, myReduceRightFunction, []))
+
+
+        isNotUnderscoreEnd('.reduceRight')
+
+
+        isUnderscoreStart('.reduceRight')
+
+        console.log(_.reduceRight(myArray, myReduceFunction, 2))
+        console.log(_.reduceRight(myObject, myReduceFunction, 2))
+        console.log(_.reduceRight(myReduceList, myReduceRightFunction, []))
+
+
+        isUnderscoreEnd('.reduceRight')
+
+
+        // FIND 
+
+        isNotUnderscoreStart('.find')
+
+        console.log(not_.find(myArray, myFindFunction))
+        console.log(not_.find(myObject, myFindFunction))
+
+        isNotUnderscoreEnd('.find')
+
+
+        isUnderscoreStart('.find')
+
+        console.log(_.find(myArray, myFindFunction))
+        console.log(_.find(myObject, myFindFunction))
+
+        isUnderscoreEnd('.find')
+
+
+        // FILTER 
+
+        isNotUnderscoreStart('.filter')
+
+        console.log(not_.filter(myArray, myFindFunction))
+        console.log(not_.filter(myObject, myFindFunction))
+
+        isNotUnderscoreEnd('.filter')
+
+
+        isUnderscoreStart('.filter')
+
+        console.log(_.filter(myArray, myFindFunction))
+        console.log(_.filter(myObject, myFindFunction))
+
+        isUnderscoreEnd('.filter')
+
+        // FINDWHERE
+
+
+        isNotUnderscoreStart('.findWhere')
+
+        console.log(not_.findWhere(arrayFindWhere, objectToFind))
+
+        isNotUnderscoreEnd('.findWhere')
+
+
+        isUnderscoreStart('.findWhere')
+
+        console.log(_.findWhere(arrayFindWhere, objectToFind))
+
+        isUnderscoreEnd('.findWhere')
+
+        // WHERE
+
+
+        isNotUnderscoreStart('.where')
+
+        console.log(not_.where(arrayFindWhere, objectToFind))
+
+        isNotUnderscoreEnd('.where')
+
+
+        isUnderscoreStart('.where')
+
+        console.log(_.where(arrayFindWhere, objectToFind))
+
+        isUnderscoreEnd('.where')
+
+
+        // REJECT
+
+        isNotUnderscoreStart('.reject')
+
+        console.log(not_.reject(myArray, myFindFunction))
+        console.log(not_.reject(myObject, myFindFunction))
+
+        isNotUnderscoreEnd('.reject')
+
+
+        isUnderscoreStart('.reject')
+
+        console.log(_.reject(myArray, myFindFunction))
+        console.log(_.reject(myObject, myFindFunction))
+
+        isUnderscoreEnd('.reject')
+
+        // EVERY
+
+        isNotUnderscoreStart('.every')
+
+        console.log(not_.every(myArray, myFindFunction))
+        console.log(not_.every(myObject, myFindFunction))
+
+        isNotUnderscoreEnd('.every')
+
+
+        isUnderscoreStart('.every')
+
+        console.log(_.every(myArray, myFindFunction))
+        console.log(_.every(myObject, myFindFunction))
+
+        isUnderscoreEnd('.every')
+
+    });
+
+    
 </script>
 
 </html>

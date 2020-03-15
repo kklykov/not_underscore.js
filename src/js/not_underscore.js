@@ -32,7 +32,7 @@
     parameters -> 
                 list: 
                 iteratee:
-  */
+  	*/
 
 	not_.each = function(list, iteratee) {
 		if (list instanceof Array) {
@@ -52,7 +52,7 @@
     parameters -> 
                 list: 
                 iteratee:
-  */
+  	*/
 
 	// not_.map = function(list, iteratee){
 	//   if(list instanceof Array){
@@ -92,7 +92,7 @@
                 list: 
                 iteratee:
                 [memo]:
-  */
+  	*/
 
 	not_.reduce = function(list, iteratee, memo) {
 		not_.map(list, function(value, index, self) {
@@ -111,7 +111,7 @@
                     list: 
                     iteratee:
                     [memo]:
-  */
+  	*/
 
 	not_.reduceRight = function(list, iteratee, memo) {
 		let obj = list
@@ -142,7 +142,7 @@
         parameters -> 
                     list: 
                     predicate:
-  */
+  	*/
 
 	not_.find = function(list, predicate) {
 		if (list instanceof Array) {
@@ -164,7 +164,7 @@
         parameters -> 
                     list: 
                     predicate:
-  */
+  	*/
 	not_.filter = function(list, predicate) {
 		var result = []
 		if (list instanceof Array) {
@@ -185,7 +185,7 @@
         parameters -> 
                     list: 
                     predicate:
-  */
+  	*/
 
 	not_.findWhere = function(list, properties) {
 		for (let index = 0; index < list.length; index++) {
@@ -206,7 +206,7 @@
         parameters -> 
                     list: 
                     predicate:
-  */
+  	*/
 
 	not_.where = function(list, properties) {
 		var result = []
@@ -221,5 +221,48 @@
 			}
 		}
 		return result
+	}
+
+	/*
+        function: .reject
+        parameters -> 
+                    list: 
+                    predicate:
+	*/
+
+	not_.reject = function(list, predicate) {
+		var result = []
+		if (list instanceof Array) {
+			for (let index = 0; index < list.length; index++) {
+				const element = list[index]
+				if (!predicate(element, index, list)) result.push(element)
+			}
+		} else {
+			for (const prop in list) {
+				if (!predicate(list[prop], prop, list)) result.push(list[prop])
+			}
+		}
+		return result
+	}
+
+	/*
+        function: .every
+        parameters -> 
+                    list: 
+                    [predicate]:
+	*/
+
+	not_.every = function(list, predicate) {
+		if (list instanceof Array) {
+			for (let index = 0; index < list.length; index++) {
+				const element = list[index]
+				if (!predicate(element, index, list)) return false
+			}
+		} else {
+			for (const prop in list) {
+				if (predicate(list[prop], prop, list)) return false
+			}
+		}
+		return true
 	}
 })()
