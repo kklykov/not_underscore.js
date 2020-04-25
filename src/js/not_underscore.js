@@ -3,11 +3,7 @@
 	console.log('start not_underscore.js')
 
 	// setting the root object
-	var root =
-		(typeof self == 'object' && self.self === self && self) ||
-		(typeof global == 'object' && global.global === global && global) ||
-		this ||
-		{}
+	var root = (typeof self == 'object' && self.self === self && self) || (typeof global == 'object' && global.global === global && global) || this || {}
 
 	var not_ = function(obj) {
 		if (obj instanceof not_) return obj
@@ -184,7 +180,7 @@
         function: .findWhere
         parameters -> 
                     list: 
-                    predicate:
+                    properties:
   	*/
 
 	not_.findWhere = function(list, properties) {
@@ -205,7 +201,7 @@
         function: .where
         parameters -> 
                     list: 
-                    predicate:
+                    properties:
   	*/
 
 	not_.where = function(list, properties) {
@@ -275,7 +271,7 @@
 
 	not_.some = function(list, predicate) {
 		if (list instanceof Array) {
-			for (let index = 0; index < list.length; index++) {
+			for (let index = 0, len = list.length; index < len; ++index) {
 				const element = list[index]
 				if (predicate(element, index, list)) return true
 			}
@@ -285,5 +281,45 @@
 			}
 		}
 		return false
+	}
+
+	/*
+        function: .contains
+        parameters -> 
+					list: 
+					value:
+                    [fromIndex]:
+	*/
+	not_.contains = function(list, value, fromIndex = 0) {
+		if (list instanceof Array) {
+			return list.indexOf(value, fromIndex) != -1 ? true : false
+		} else {
+			for (const prop in list) {
+				if (list[prop] == value) return true
+			}
+			return false
+		}
+	}
+
+	/*
+        function: .invoke
+        parameters -> 
+					list: 
+					methodName:
+                    *args:
+	*/
+	not_.invoke = function(list, methodName, args) {
+		if (list instanceof Array) {
+			for (let index = 0, len = list.length; index < len; ++index) {
+				const element = list[index]
+				args ? element[methodName](args) : element[methodName]()
+			}
+		} else {
+			for (const prop in list) {
+				let value = list[prop]
+				args ? value[methodName](args) : value[methodName]()
+			}
+		}
+		return list
 	}
 })()

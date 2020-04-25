@@ -31,7 +31,7 @@
     </footer>
 </body>
 <script type="text/javascript" src="../js/not_underscore.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+<script type="text/javascript" src="../js/underscore-min.js"></script>
 <script>
     $(function() {
 
@@ -295,6 +295,29 @@
             name: 'some',
             type: 'Object',
             parameters: [{...myObject}, myFindFunction]
+        }, 
+        {
+            name: 'contains',
+            type: 'Array',
+            parameters: [[1, 2, 3], 3]
+        },
+        {
+            name: 'contains',
+            type: 'Object',
+            parameters: [{ one: 1, two: 2, three: 3 }, 3]
+        },
+        {
+            name: 'invoke',
+            type: 'Array',
+            parameters: [[[5, 1, 7], [3, 2, 1]], 'sort']
+        },
+        {
+            name: 'invoke',
+            type: 'Object',
+            parameters: [{
+                one: [5, 1, 7],
+                two: [3, 2, 1]
+            }, 'sort']
         }]
 
         methods.forEach(function(item, index, self) {
