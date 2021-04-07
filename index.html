@@ -382,6 +382,46 @@
 						"sort",
 					],
 				},
+				{
+					name: "pluck",
+					type: "Array",
+					parameters: [
+						[
+							{ name: "moe", age: 40 },
+							{ name: "larry", age: 50 },
+							{ name: "curly", age: 60 },
+						],
+						"name",
+					],
+				},
+				{
+					name: "max",
+					type: "Array",
+					parameters: [
+						[
+							{ name: "moe", age: 40 },
+							{ name: "larry", age: 150 },
+							{ name: "curly", age: 60 },
+						],
+						function (stooge) {
+							return stooge.age;
+						},
+					],
+				},
+				{
+					name: "min",
+					type: "Array",
+					parameters: [
+						[
+							{ name: "moe", age: 40 },
+							{ name: "larry", age: 150 },
+							{ name: "curly", age: 60 },
+						],
+						function (stooge) {
+							return stooge.age;
+						},
+					],
+				},
 			];
 
 			methods.forEach(function (item, index, self) {
